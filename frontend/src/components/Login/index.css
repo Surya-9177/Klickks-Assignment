@@ -1,0 +1,14 @@
+.login-bg-con{
+    height: 100vh;
+    padding-top: 50px;
+}
+
+.login-form{
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 50vw;
+    margin-top: 10vh;
+}
+input{
+    width: 80%;
+}
