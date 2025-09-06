@@ -25,7 +25,7 @@ const Login = (props) => {
         e.preventDefault()
         try {
             if (username.length !== 0 && password.length !== 0) {
-                const url = "http://localhost:8000/login"
+                const url = "https://klickks-assignment-t0zt.onrender.com/login"
                 const userDetails = { username, password }
                 const opt = {
                     method: "POST",

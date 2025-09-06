@@ -24,7 +24,7 @@ const Register = () => {
         try {
             if (confirmPassword === password) {
                 const userDetails = { username, password }
-                const url = "http://localhost:8000/register"
+                const url = "https://klickks-assignment-t0zt.onrender.com/register"
                 const opt = {
                     method: "POST",
                     headers: {

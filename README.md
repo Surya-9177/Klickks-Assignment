@@ -27,6 +27,10 @@ Validation for empty fields
 
 SQLite database for user persistence
 
+LocalStorage for storing user details on the frontend
+
+Responsive UI using Bootstrap
+
 Folder Structure
 klickksAssignment/
 │── backend/
