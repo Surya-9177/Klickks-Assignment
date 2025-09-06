@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import Cookies from 'js-cookie'
 import { useNavigate } from "react-router-dom";
+import Cookies from 'js-cookie'
 import './index.css'
 
 const Login = (props) => {
@@ -12,6 +12,8 @@ const Login = (props) => {
     const onSubmitSuccess = jwtToken => {
         Cookies.set('jwt_token', jwtToken, { expires: 30 })
         navigate('/profile')
+        localStorage.setItem('username', username)
+        localStorage.setItem('password', password)
     }
 
     const onSubmitFailure = errorMsg => {
@@ -22,24 +24,28 @@ const Login = (props) => {
     const makeApiCall = async (e) => {
         e.preventDefault()
         try {
-            const url = "http://localhost:8000/login"
-            const userDetails = { username, password }
-            const opt = {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(userDetails)
-            }
+            if (username.length !== 0 && password.length !== 0) {
+                const url = "http://localhost:8000/login"
+                const userDetails = { username, password }
+                const opt = {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(userDetails)
+                }
 
-            const response = await fetch(url, opt)
-            const data = await response.json()
-            console.log(response)
-            console.log(data.jwtToken)
-            if (response.ok) {
-                onSubmitSuccess(data.jwt_token)
+                const response = await fetch(url, opt)
+                const data = await response.json()
+                console.log(response)
+                console.log(data.jwtToken)
+                if (response.ok) {
+                    onSubmitSuccess(data.jwt_token)
+                } else {
+                    onSubmitFailure(data.error)
+                }
             } else {
-                onSubmitFailure(data.error)
+                onSubmitFailure("please enter the details!!!")
             }
         } catch (e) {
             onSubmitFailure("Something went wrong, please try again later.")

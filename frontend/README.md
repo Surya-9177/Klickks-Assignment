@@ -1,70 +1,108 @@
-# Getting Started with Create React App
+Authentication System (React + Node.js + SQLite + JWT)
+Overview
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a simple authentication system built with:
 
-## Available Scripts
+Frontend: React.js
 
-In the project directory, you can run:
+Backend: Node.js + Express.js
 
-### `npm start`
+Database: SQLite
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Authentication: JWT (JSON Web Tokens)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+It allows users to register, login, view their profile, and logout securely.
 
-### `npm test`
+Features
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+User registration with hashed password (bcrypt)
 
-### `npm run build`
+User login with JWT authentication
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Protected profile page (accessible only with a valid token)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Logout by clearing JWT token from cookies
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Validation for empty fields
 
-### `npm run eject`
+SQLite database for user persistence
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Folder Structure
+klickksAssignment/
+│── backend/
+│   ├── server.js
+│   ├── routes/
+│   │   ├── auth.js
+│   │   └── profile.js
+│   ├── middleware/
+│   │   └── authMiddleware.js
+│   └── database/
+│       └── users.db
+│
+│── frontend/
+│   ├── src/
+│   │   ├── App.js
+│   │   ├── components/
+│   │   │   ├── Welcome/
+│   │   │   ├── Login/
+│   │   │   ├── Register/
+│   │   │   └── Profile/
+│   │   └── index.js
+│   └── package.json
+│
+└── README.md
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Installation & Setup
+1. Clone the repository
+git clone <repo-url>
+cd klickksAssignment
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+2. Backend Setup
+cd backend
+npm install
+node server.js
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+Backend runs on http://localhost:8000
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+3. Frontend Setup
+cd frontend
+npm install
+npm start
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+Frontend runs on http://localhost:3000
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+API Endpoints
+Register User
+POST /register/
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Body:
 
-### Making a Progressive Web App
+{
+  "username": "testuser",
+  "password": "mypassword"
+}
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Login User
+POST /login/
 
-### Advanced Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Body:
 
-### Deployment
+{
+  "username": "testuser",
+  "password": "mypassword"
+}
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### `npm run build` fails to minify
+Response:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+{
+  "jwtToken": "your_jwt_token_here"
+}
+
+Get Profile (Protected)
+GET /profile/
+Headers: Authorization: Bearer <jwt_token>

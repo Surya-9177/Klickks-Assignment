@@ -13,7 +13,7 @@ module.exports = (db) => {
       if (!checkUser) {
         const hashedPassword = await bcrypt.hash(password, 10);
         await db.run(`INSERT INTO user (username, password) VALUES (?, ?)`, [username, hashedPassword]);
-        res.status(201).send({message: "User created successfully darling!!!"});
+        res.status(201).send({message: "User created successfully, Please login using your credentials!"});
       } else {
         res.status(400).send({error: "User already exists"});
       }
